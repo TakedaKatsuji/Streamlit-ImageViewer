@@ -7,7 +7,7 @@ setuptools.setup(
     name="streamlit_image_viewer",
     version="0.1.1",
     author="katsuji takeda",
-    description="streamlit components for image annotation",
+    description="streamlit components for image viewer",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/TakedaKatsuji/Streamlit-ImageViewer",
