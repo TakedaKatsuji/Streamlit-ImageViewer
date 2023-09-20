@@ -1,1 +1,1 @@
-recursive-include streamlit_image_viewer/*/frontend/build *
+recursive-include streamlit_image_viewer/ImageViewer/frontend/build *
