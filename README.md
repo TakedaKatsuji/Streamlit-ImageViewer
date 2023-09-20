@@ -7,7 +7,6 @@ Streamlit component for image viewer.
 ![](./image/demo.gif)
 # Features
 * You can easily view the images in a folder side by side
-* Multiple rows and columns are supported
 * Support for displaying images in multiple rows and columns
 
 # Install
@@ -36,10 +35,14 @@ image_viewer(
     key: Optional[str] = None
 )
 ```
-* **image_path_list** : A list containing the paths to the image files
-* **ncol** : number of columns
-* **nrow** : number of rows
-* **key** : An optional string to use as the unique key for the widget. Assign a key so the component is not remount every time the script is rerun.
+* **image_path_list** : A list containing paths to the images to be displayed.
+* **ncol** : The number of columns. Defaults to 2.
+* **nrow** : The number of rows. Defaults to 2.
+* **key** : A unique key for the component. Can be used to distinguish between different components.
+
+## NOTE
+* `ncol` and `nrow` should be positive integers; otherwise, a ValueError will be raised.  
+This function allows for the effective display of specified images in a grid layout with a customizable number of columns and rows. By default, a 2x2 grid is created, but you can adjust the column and row counts to suit your needs.
 
 # References
 
