@@ -22,14 +22,19 @@ import {
 import { Stage, Image, Layer } from 'react-konva';
 import useWindowSize from "./useWindowSize";
 
+// Define a tuple type representing an array of two numbers.
 type TupleType = [number, number];
+
+// Define an interface named PythonArgs to specify the types of arguments received from Python.
 export interface PythonArgs {
-  image_urls: string[],
-  image_names: string[],
-  image_size_list: TupleType[],
-  nrow: number,
-  ncol: number
+  image_urls: string[],        // Array of image URLs
+  image_names: string[],      // Array of image names
+  image_size_list: TupleType[], // Array of image sizes (width and height tuples)
+  nrow: number,               // Number of rows to display
+  ncol: number                // Number of columns to display
 }
+
+// Define a function to asynchronously load an image.
 const loadImage = async (url: string) => {
   return new Promise((resolve) => {
     const imageObj = new window.Image();
@@ -39,59 +44,77 @@ const loadImage = async (url: string) => {
     };
   });
 };
+
+// Define a function to modify image size based on the maximum dimensions.
 const modifyImageSize = (current_image_size: number[], maxWidth: number, maxHeight: number) =>{
-  // pythonから受け取ったsizeリストをmax sizeに合わせてリサイズ
+  // Resize the size list received from Python to fit the max size
   const currentWidth = current_image_size[0]
   const currentHeight = current_image_size[1]
   let newWidth = currentWidth;
   let newHeight = currentHeight;
   let imageType: string;
 
-  // 縦横比に基づいて画像の種類を判別
+  // Determine the image type based on aspect ratio
   if (currentHeight >= currentWidth) {
-    imageType = "heightType"; // 縦長の画像
+    imageType = "heightType"; // Portrait-oriented image
   } else {
-    imageType = "widthType"; // 横長の画像
+    imageType = "widthType"; // Landscape-oriented image
   }
 
-  // maxWidthに合わせて調整
+  // Adjust for maxWidth
   if (imageType === "widthType") {
     newWidth = maxWidth;
     newHeight = (currentHeight * maxWidth) / currentWidth;
   }
 
-  // maxHeightに合わせて調整
+  // Adjust for maxHeight
   if (imageType === "heightType") {
     newHeight = maxHeight;
     newWidth = (currentWidth * maxHeight) / currentHeight;
   }
-  // 新しい幅と高さを配列で返す
+  // Return the new width and height as an array
   return [newWidth, newHeight];
 };
 
-const ImageViewer = ({args}: ComponentProps) => {
+const ImageViewer = ({ args }: ComponentProps) => {
+  // Extract necessary properties from the component's arguments
   const {
-    image_urls,
-    image_size_list,
-    image_names,
-    ncol,
-    nrow
+    image_urls,        // Array of image URLs
+    image_size_list,   // Array of image sizes (width and height tuples)
+    image_names,       // Array of image names
+    ncol,              // Number of columns
+    nrow               // Number of rows
   }: PythonArgs = args
   
+  // Get the 'streamlitUrl' from URL parameters and store it in baseUrl
   const params = new URLSearchParams(window.location.search);
   const baseUrl = params.get('streamlitUrl')
+
+  // State variable to store images
   const [images, setImages] = useState<HTMLImageElement[]>([]);
+
+  // Get the width and height of the window
   const [width, height] = useWindowSize();
+
+  // Calculate the maximum width and height for images
   const maxWidth: number = width / ncol
   const maxHeight: number = maxWidth
+
+  // Number of images per set
   const imagesPerSet = ncol * nrow;
+
+  // Arrays to store image sets, image size sets, and image name sets
   const imageSets: HTMLImageElement[][] = [];
   const imageSizeSets: TupleType[][] = [];
   const imageNameSets: string[][] = [];
-  const [currentSetIndex, setCurrentSetIndex] = useState<number>(0);
-  const imageHoverClass = "image-hover";
 
-  //　>>>配列の分割<<<  
+  // State variable to store the current set index
+  const [currentSetIndex, setCurrentSetIndex] = useState<number>(0);
+
+  // Class name for image hover effect
+  const imageHoverClass = "image-hover";
+  
+  // Splitting arrays >>>
   for (let i = 0; i < images.length; i += imagesPerSet) {
     imageSets.push(images.slice(i, i + imagesPerSet));
   }
@@ -109,38 +132,38 @@ const ImageViewer = ({args}: ComponentProps) => {
   for (let i = 0; i < image_size_list_resized.length; i += imagesPerSet) {
     imageSizeSets.push(image_size_list_resized.slice(i, i + imagesPerSet));
   }
-  // >>> Event 1 <<<
+  // Event 1 >>>
   const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
     e.preventDefault();
     if (e.deltaY > 0) {
-      // マウスホイールを下にスクロールした場合、次のセットを表示
+      // When scrolling down with the mouse wheel, display the next set
       setCurrentSetIndex((prevIndex: number) =>
         prevIndex < imageSets.length - 1 ? prevIndex + 1 : prevIndex
       );
     } else if (e.deltaY < 0) {
-      // マウスホイールを上にスクロールした場合、前のセットを表示
+      // When scrolling up with the mouse wheel, display the previous set
       setCurrentSetIndex((prevIndex: number) => (prevIndex > 0 ? prevIndex - 1 : prevIndex));
     }
   };
-  // >>> Event 2 <<<
-  // Slider 用
+  // Event 2 >>>
+  // For the Slider
   const handleChange = (newValue: number) => {
     setCurrentSetIndex(newValue);
   }
 
-  // Prev Button用
+  // For the Prev button
   const handlePrevClick = () => {
     setCurrentSetIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : prevIndex));
   };
-  // Next Button用
+  // For the Next button
   const handleNextClick = () => {
     setCurrentSetIndex((prevIndex) =>
       prevIndex < imageSets.length - 1 ? prevIndex + 1 : prevIndex
     );
   };
 
-  // >>> Hook <<<
-  // load images
+  // Hook >>>
+  // Load images
   useEffect(() => {
     const loadImages = async () => {
       const loadedImages = await Promise.all(image_urls.map((imageUrl) => loadImage(baseUrl + imageUrl)));
@@ -149,7 +172,7 @@ const ImageViewer = ({args}: ComponentProps) => {
     loadImages();
   }, [image_urls, baseUrl]);
 
-  // resize canvas
+  // Resize canvas
   useEffect(() => {
     const resizeCanvas = () => {
       Streamlit.setFrameHeight()
@@ -193,7 +216,7 @@ const ImageViewer = ({args}: ComponentProps) => {
       </Center>
 
       <SimpleGrid columns={ncol} spacing={2}>
-          {images.length > 0 &&  // images 配列が非空の場合のみ描画
+          {images.length > 0 &&  // Only render if the images array is not empty
             imageSets[currentSetIndex].map((image, index) => (
               <VStack>
                 <Box 

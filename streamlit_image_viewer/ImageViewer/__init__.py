@@ -20,16 +20,20 @@ def image_viewer(image_path_list,ncol=2, nrow=2, key=None ) -> CustomComponent:
     image_url_list = []
     image_size_list = []
     image_name_list = []
-    for image_path in image_path_list:
-        image = Image.open(image_path)
-        image_url = st_image.image_to_url(image, image.size[0], True, "RGB", "PNG", f"imageviewer-{md5(image.tobytes()).hexdigest()}-{key}")
-        image_name = Path(image_path).name
-        if image_url.startswith('/'):
-            image_url = image_url[1:]
-        image_url_list.append(image_url)
-        image_size_list.append(image.size)
-        image_name_list.append(image_name)
-    component_value = _image_viewer_func(image_urls=image_url_list, image_size_list=image_size_list, image_names=image_name_list, ncol=ncol, nrow=nrow, key=key)
+    # Raise an error if ncol and nrow are not positive integers
+    if not (isinstance(ncol, int) and ncol >= 1) or not (isinstance(nrow, int) and nrow >= 1):
+        raise ValueError("Please specify ncol and nrow as positive integers greater than or equal to 1.")
+    else:
+        for image_path in image_path_list:
+            image = Image.open(image_path)
+            image_url = st_image.image_to_url(image, image.size[0], True, "RGB", "PNG", f"imageviewer-{md5(image.tobytes()).hexdigest()}-{key}")
+            image_name = Path(image_path).name
+            if image_url.startswith('/'):
+                image_url = image_url[1:]
+            image_url_list.append(image_url)
+            image_size_list.append(image.size)
+            image_name_list.append(image_name)
+        component_value = _image_viewer_func(image_urls=image_url_list, image_size_list=image_size_list, image_names=image_name_list, ncol=ncol, nrow=nrow, key=key)
 
     return component_value
 
