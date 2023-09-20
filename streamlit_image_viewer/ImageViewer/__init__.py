@@ -12,6 +12,7 @@ from pathlib import Path
 if IS_RELEASE:
     absolute_path = os.path.dirname(os.path.abspath(__file__))
     build_path = os.path.join(absolute_path, "frontend/build")
+    print(build_path)
     _image_viewer_func = components.declare_component("st_imageviewer", path=build_path)
 else:
     _image_viewer_func = components.declare_component("st_imageviewer", url="http://localhost:3000")
