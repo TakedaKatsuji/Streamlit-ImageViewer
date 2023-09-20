@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="streamlit_image_viewer",
-    version="0.1.0",
+    version="0.1.1",
     author="katsuji takeda",
     description="streamlit components for image annotation",
     long_description=long_description,
@@ -13,10 +13,9 @@ setuptools.setup(
     url="https://github.com/TakedaKatsuji/Streamlit-ImageViewer",
     packages=setuptools.find_packages(),
     include_package_data=True,
-    classifiers=[],
     keywords=['Python', 'Streamlit', 'React', 'TypeScript'],
     python_requires=">=3.9",
     install_requires=[
-        "streamlit >= 1.24.0",
+        "streamlit >= 1.14.0",
     ],
 )
