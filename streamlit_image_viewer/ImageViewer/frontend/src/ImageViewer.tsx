@@ -190,40 +190,41 @@ const ImageViewer = ({ args }: ComponentProps) => {
       max={imageSets.length - 1}
       step={1}
       onChange={handleChange}
+      margin={3}
       >
-        <SliderTrack bg='blue.100'>
+        <SliderTrack bg='blue.100' >
           <SliderFilledTrack bg="blue.500" />
         </SliderTrack>
-        <SliderThumb boxSize={5} bg="blue.500" >
+        <SliderThumb boxSize={3} bg="blue.500" >
           <Box color="blue.500"/>
         </SliderThumb>
       </Slider>
 
-      <SimpleGrid columns={2}>
+      <SimpleGrid columns={3} margin="0 20% 3% 20%">
         <Box>
           <Center>
             <Button onClick={handlePrevClick} colorScheme="messenger">Prev</Button>
           </Center>
         </Box>
+        <Center>
+          <Text margin={3} fontWeight="bold">{currentSetIndex+1}/{imageSets.length}</Text>
+        </Center>
         <Box>
           <Center>
               <Button onClick={handleNextClick} colorScheme="messenger" >Next</Button>
           </Center>
         </Box>
       </SimpleGrid>
-      <Center>
-        <Text>{currentSetIndex+1}/{imageSets.length}</Text>
-      </Center>
-
+      
       <SimpleGrid columns={ncol} spacing={2}>
           {images.length > 0 &&  // Only render if the images array is not empty
             imageSets[currentSetIndex].map((image, index) => (
               <VStack>
                 <Box 
-                  width={imageSizeSets[currentSetIndex][index][0]} 
+                  width={imageSizeSets[currentSetIndex][index][0]}
                   >
                   <Center>
-                    <Text>{imageNameSets[currentSetIndex][index]}</Text>
+                    <Text margin="0 0 -1% 0" bg="blue.100" className="image_name">{imageNameSets[currentSetIndex][index]}</Text>
                   </Center>
                 </Box>
                 <Center>
@@ -231,6 +232,7 @@ const ImageViewer = ({ args }: ComponentProps) => {
                     width={imageSizeSets[currentSetIndex][index][0]} 
                     height={imageSizeSets[currentSetIndex][index][1]}
                     className={imageHoverClass}
+                    margin="0 0 5% 0"
                     >
                       <Stage width={imageSizeSets[currentSetIndex][index][0]} height={imageSizeSets[currentSetIndex][index][1]}>
                         <Layer>

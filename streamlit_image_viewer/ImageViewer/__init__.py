@@ -44,4 +44,4 @@ if not IS_RELEASE:
     st.title("Sample Images")
     image_path_list = glob('../../image/*.jpg')
     image_path_list = sorted(image_path_list)
-    image_viewer(image_path_list,4,4, key="image_viewer")
+    image_viewer(image_path_list,2,2)
