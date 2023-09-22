@@ -6,7 +6,7 @@ Streamlit component for image viewer.
 [![PyPI](https://img.shields.io/pypi/v/streamlit-image-annotation)](https://pypi.org/project/streamlit-image-annotation/)
 ![](./image/demo.gif)
 
-<img src=demo/streamlit-image-viewer-demo.gif></img>
+<img src=demo/streamlit-image-viewer-demo.png></img>
 # Features
 * You can easily view the images in a folder side by side
 * Support for displaying images in multiple rows and columns
