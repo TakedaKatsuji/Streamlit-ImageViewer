@@ -258,8 +258,8 @@ const ImageViewer = ({ args }: ComponentProps) => {
                           <Layer>
                               <Image
                                 image={image}
-                                width={imageSizeSets[currentSetIndex][index][0]*0.99}
-                                height={imageSizeSets[currentSetIndex][index][1]*0.99}
+                                width={imageSizeSets[currentSetIndex][index][0]*0.98}
+                                height={imageSizeSets[currentSetIndex][index][1]*0.98}
                                 x={0}
                                 y={0}
                                 onClick={() => handleOpen(index)}
@@ -295,13 +295,23 @@ const ImageViewer = ({ args }: ComponentProps) => {
                               <Layer>
                                   <Image
                                     image={image}
-                                    width={imageSizeSets[currentSetIndex][index][0]*0.99}
-                                    height={imageSizeSets[currentSetIndex][index][1]*0.99}
+                                    width={imageSizeSets[currentSetIndex][index][0]*0.98}
+                                    height={imageSizeSets[currentSetIndex][index][1]*0.98}
                                     x={0}
                                     y={0}
+                                    onClick={() => handleOpen(index)}
                                   />
                               </Layer>
                             </Stage>
+                            {isOpen[index] && (
+                              <div onClick={() => handleClose(index)} className="modal-overlay">
+                                <Box className="modal-content" width="100%" height="100%" bgColor="rgba(0, 0, 0, 0.5)">
+                                  <Center>
+                                    <img src={image.src} alt="画像" />
+                                  </Center>
+                                </Box>
+                              </div>
+                            )}
                         </Box>
                       </Center>
                   ))}
