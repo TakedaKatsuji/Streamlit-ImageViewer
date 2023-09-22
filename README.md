@@ -28,6 +28,11 @@ st.title("Sample Images")
 image_path_list = glob('../../image/*.jpg') + glob('../../image/*.png') 
 image_viewer(image_path_list, ncol=3, nrow=2, key="image_viewer")
 ```
+# Example App
+```shell
+cd streamlit_image_viewer/ImageViewer
+streamlit run app.py
+```
 # API
 ```python
 image_viewer(
