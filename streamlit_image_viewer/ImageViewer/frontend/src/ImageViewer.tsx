@@ -31,7 +31,8 @@ export interface PythonArgs {
   image_names: string[],      // Array of image names
   image_size_list: TupleType[], // Array of image sizes (width and height tuples)
   nrow: number,               // Number of rows to display
-  ncol: number                // Number of columns to display
+  ncol: number,               // Number of columns to display
+  image_name_visible: boolean // show image name (boolean) default True
 }
 
 // Define a function to asynchronously load an image.
@@ -83,7 +84,8 @@ const ImageViewer = ({ args }: ComponentProps) => {
     image_size_list,   // Array of image sizes (width and height tuples)
     image_names,       // Array of image names
     ncol,              // Number of columns
-    nrow               // Number of rows
+    nrow,               // Number of rows
+    image_name_visible, // show image name (boolean) default True
   }: PythonArgs = args
   
   // Get the 'streamlitUrl' from URL parameters and store it in baseUrl
@@ -132,7 +134,10 @@ const ImageViewer = ({ args }: ComponentProps) => {
   for (let i = 0; i < image_size_list_resized.length; i += imagesPerSet) {
     imageSizeSets.push(image_size_list_resized.slice(i, i + imagesPerSet));
   }
-  // Event 1 >>>
+  // State Image Modal
+  const [isOpen, setIsOpen] = useState<boolean[]>(Array(nrow * ncol).fill(false));
+
+  // >>> Event 1 >>>
   const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
     e.preventDefault();
     if (e.deltaY > 0) {
@@ -145,7 +150,7 @@ const ImageViewer = ({ args }: ComponentProps) => {
       setCurrentSetIndex((prevIndex: number) => (prevIndex > 0 ? prevIndex - 1 : prevIndex));
     }
   };
-  // Event 2 >>>
+  // >>> Event 2 >>>
   // For the Slider
   const handleChange = (newValue: number) => {
     setCurrentSetIndex(newValue);
@@ -160,6 +165,20 @@ const ImageViewer = ({ args }: ComponentProps) => {
     setCurrentSetIndex((prevIndex) =>
       prevIndex < imageSets.length - 1 ? prevIndex + 1 : prevIndex
     );
+  };
+  // >>> Event 3 >>>
+  // モーダルを開く
+  const handleOpen = (index: number) => {
+    const updatedImageIsOpen: boolean[] = [...isOpen];
+    updatedImageIsOpen[index] = true;
+    setIsOpen(updatedImageIsOpen);
+  };
+
+  // モーダルを閉じる
+  const handleClose = (index: number) => {
+    const updatedImageIsOpen: boolean[] = [...isOpen];
+    updatedImageIsOpen[index] = false;
+    setIsOpen(updatedImageIsOpen);
   };
 
   // Hook >>>
@@ -203,7 +222,7 @@ const ImageViewer = ({ args }: ComponentProps) => {
       <SimpleGrid columns={3} margin="0 20% 3% 20%">
         <Box>
           <Center>
-            <Button onClick={handlePrevClick} colorScheme="messenger">Prev</Button>
+            <Button onClick={handlePrevClick} colorScheme="messenger" fontFamily="Arial">Prev</Button>
           </Center>
         </Box>
         <Center>
@@ -211,45 +230,83 @@ const ImageViewer = ({ args }: ComponentProps) => {
         </Center>
         <Box>
           <Center>
-              <Button onClick={handleNextClick} colorScheme="messenger" >Next</Button>
+              <Button onClick={handleNextClick} colorScheme="messenger" fontFamily="Arial">Next</Button>
           </Center>
         </Box>
       </SimpleGrid>
-      
-      <SimpleGrid columns={ncol} spacing={2}>
-          {images.length > 0 &&  // Only render if the images array is not empty
-            imageSets[currentSetIndex].map((image, index) => (
-              <VStack>
-                <Box 
-                  width={imageSizeSets[currentSetIndex][index][0]}
-                  >
-                  <Center>
-                    <Text margin="0 0 -2.5% 0" className="image_name">{imageNameSets[currentSetIndex][index]}</Text>
-                  </Center>
-                </Box>
-                <Center>
+      {image_name_visible ?(
+        <SimpleGrid columns={ncol} spacing={2}>
+            {images.length > 0 &&  // Only render if the images array is not empty
+              imageSets[currentSetIndex].map((image, index) => (
+                <VStack>
                   <Box 
-                    width={imageSizeSets[currentSetIndex][index][0]} 
-                    height={imageSizeSets[currentSetIndex][index][1]}
-                    className={imageHoverClass}
-                    margin="0 0 5% 0"
+                    width={imageSizeSets[currentSetIndex][index][0]}
                     >
-                      <Stage width={imageSizeSets[currentSetIndex][index][0]} height={imageSizeSets[currentSetIndex][index][1]}>
-                        <Layer>
-                            <Image
-                              image={image}
-                              width={imageSizeSets[currentSetIndex][index][0]*0.99}
-                              height={imageSizeSets[currentSetIndex][index][1]*0.99}
-                              x={0}
-                              y={0}
-                            />
-                        </Layer>
-                      </Stage>
+                    <Center>
+                      <Text margin="0 0 -1% 0" className="image_name" fontWeight="bold" fontFamily="Arial">{imageNameSets[currentSetIndex][index]}</Text>
+                    </Center>
                   </Box>
-                </Center>
-              </VStack>
-            ))}
-        </SimpleGrid>
+                  <Center>
+                    <Box 
+                      width={imageSizeSets[currentSetIndex][index][0]} 
+                      height={imageSizeSets[currentSetIndex][index][1]}
+                      className={imageHoverClass}
+                      margin="0 0 5% 0"
+                      
+                      >
+                        <Stage width={imageSizeSets[currentSetIndex][index][0]} height={imageSizeSets[currentSetIndex][index][1]}>
+                          <Layer>
+                              <Image
+                                image={image}
+                                width={imageSizeSets[currentSetIndex][index][0]*0.99}
+                                height={imageSizeSets[currentSetIndex][index][1]*0.99}
+                                x={0}
+                                y={0}
+                                onClick={() => handleOpen(index)}
+                              />
+                          </Layer>
+                        </Stage>
+                        {isOpen[index] && (
+                          <div onClick={() => handleClose(index)} className="modal-overlay">
+                            <Box className="modal-content" width="100%" height="100%" bgColor="rgba(0, 0, 0, 0.5)">
+                              <Center>
+                                <img src={image.src} alt="画像" />
+                              </Center>
+                            </Box>
+                          </div>
+                        )}
+                    </Box>
+                  </Center>
+                </VStack>
+              ))}
+          </SimpleGrid>
+      ) : (
+            <SimpleGrid columns={ncol} spacing={2}>
+                {images.length > 0 &&  // Only render if the images array is not empty
+                  imageSets[currentSetIndex].map((image, index) => (
+                      <Center>
+                        <Box 
+                          width={imageSizeSets[currentSetIndex][index][0]} 
+                          height={imageSizeSets[currentSetIndex][index][1]}
+                          className={imageHoverClass}
+                          margin="0 0 5% 0"
+                          >
+                            <Stage width={imageSizeSets[currentSetIndex][index][0]} height={imageSizeSets[currentSetIndex][index][1]}>
+                              <Layer>
+                                  <Image
+                                    image={image}
+                                    width={imageSizeSets[currentSetIndex][index][0]*0.99}
+                                    height={imageSizeSets[currentSetIndex][index][1]*0.99}
+                                    x={0}
+                                    y={0}
+                                  />
+                              </Layer>
+                            </Stage>
+                        </Box>
+                      </Center>
+                  ))}
+              </SimpleGrid>
+      )}
     </ChakraProvider>
   );
 }

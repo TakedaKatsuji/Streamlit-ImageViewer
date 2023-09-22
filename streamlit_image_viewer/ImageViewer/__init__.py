@@ -17,7 +17,7 @@ if IS_RELEASE:
 else:
     _image_viewer_func = components.declare_component("st_imageviewer", url="http://localhost:3000")
     
-def image_viewer(image_path_list,ncol=2, nrow=2, key=None ) -> CustomComponent:
+def image_viewer(image_path_list,ncol=2, nrow=2, image_name_visible=True, key=None) -> CustomComponent:
     image_url_list = []
     image_size_list = []
     image_name_list = []
@@ -34,7 +34,14 @@ def image_viewer(image_path_list,ncol=2, nrow=2, key=None ) -> CustomComponent:
             image_url_list.append(image_url)
             image_size_list.append(image.size)
             image_name_list.append(image_name)
-        component_value = _image_viewer_func(image_urls=image_url_list, image_size_list=image_size_list, image_names=image_name_list, ncol=ncol, nrow=nrow, key=key)
+            
+        component_value = _image_viewer_func(
+            image_urls=image_url_list,
+            image_size_list=image_size_list,
+            image_names=image_name_list,
+            image_name_visible=image_name_visible,
+            ncol=ncol, nrow=nrow,
+            key=key)
 
     return component_value
 
@@ -44,4 +51,4 @@ if not IS_RELEASE:
     st.title("Sample Images")
     image_path_list = glob('../../image/*.jpg')
     image_path_list = sorted(image_path_list)
-    image_viewer(image_path_list,2,2)
+    image_viewer(image_path_list,3,2, image_name_visible=True)
