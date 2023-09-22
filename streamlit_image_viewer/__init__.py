@@ -1,3 +1,3 @@
 
-IS_RELEASE = False
+IS_RELEASE = True
 from .ImageViewer import *
