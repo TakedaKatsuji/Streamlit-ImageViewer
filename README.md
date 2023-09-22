@@ -34,12 +34,14 @@ image_viewer(
     image_path_list: List[str],
     ncol: int = 2,
     nrow: int = 2,
+    image_name_visible: bool = True
     key: Optional[str] = None
 )
 ```
 * **image_path_list** : A list containing paths to the images to be displayed.
 * **ncol** : The number of columns. Defaults to 2.
 * **nrow** : The number of rows. Defaults to 2.
+* **image_name_visible** : A boolean indicating whether image names are visible.
 * **key** : A unique key for the component. Can be used to distinguish between different components.
 
 ## NOTE
