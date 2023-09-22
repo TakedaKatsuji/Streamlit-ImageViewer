@@ -52,4 +52,5 @@ This function allows for the effective display of specified images in a grid lay
 * Sample Images are downloaded from  [**Pixabay**](https://pixabay.com/ja/)
 
 # Release note
-* 2023/9/22 Release version 0.1.6
+* 2023/9/20 Release version 0.1.6
+* 2023/9/22 Release version 0.1.8 
