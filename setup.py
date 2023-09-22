@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="streamlit_image_viewer",
-    version="0.1.8",
+    version="0.1.9",
     author="katsuji takeda",
     description="streamlit components for image viewer",
     long_description=long_description,

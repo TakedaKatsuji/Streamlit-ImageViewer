@@ -11,11 +11,7 @@
   transition: transform 0.3s, box-shadow 0.3s; /* アニメーション効果を追加 */
 }
 
-.image_name {
-  border: 2px solid transparent; /* 四角い縁を設定し、縁の幅や色を調整できます */
-  border-radius: 10px; /* 縁の角を丸くするための半径を設定します。必要に応じて調整してください */
-  padding: 5px; /* 画像と縁の間に余白を設定します。必要に応じて調整してください */
-}
+
 :root {
   --blue: #007bff;
   --indigo: #6610f2;

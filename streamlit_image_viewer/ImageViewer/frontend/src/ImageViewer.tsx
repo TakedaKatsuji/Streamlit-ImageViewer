@@ -224,7 +224,7 @@ const ImageViewer = ({ args }: ComponentProps) => {
                   width={imageSizeSets[currentSetIndex][index][0]}
                   >
                   <Center>
-                    <Text margin="0 0 -1% 0" bg="blue.100" className="image_name">{imageNameSets[currentSetIndex][index]}</Text>
+                    <Text margin="0 0 -2.5% 0" className="image_name">{imageNameSets[currentSetIndex][index]}</Text>
                   </Center>
                 </Box>
                 <Center>
