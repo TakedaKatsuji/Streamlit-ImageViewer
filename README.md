@@ -50,3 +50,6 @@ This function allows for the effective display of specified images in a grid lay
 * [**Streamlit Components Doc**](https://docs.streamlit.io/library/components)  
 * [**streamlit-template**](https://github.com/streamlit/component-template)  
 * Sample Images are downloaded from  [**Pixabay**](https://pixabay.com/ja/)
+
+# Release note
+* 2023/9/22 Release version 0.1.6
