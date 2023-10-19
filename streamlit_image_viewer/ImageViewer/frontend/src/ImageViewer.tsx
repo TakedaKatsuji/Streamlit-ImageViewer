@@ -35,6 +35,7 @@ export interface PythonArgs {
   image_name_visible: boolean // show image name (boolean) default True
 }
 
+
 // Define a function to asynchronously load an image.
 const loadImage = async (url: string) => {
   return new Promise((resolve) => {
@@ -88,9 +89,6 @@ const ImageViewer = ({ args }: ComponentProps) => {
     image_name_visible, // show image name (boolean) default True
   }: PythonArgs = args
   
-  // Get the 'streamlitUrl' from URL parameters and store it in baseUrl
-  const params = new URLSearchParams(window.location.search);
-  const baseUrl = params.get('streamlitUrl')
 
   // State variable to store images
   const [images, setImages] = useState<HTMLImageElement[]>([]);
@@ -180,16 +178,17 @@ const ImageViewer = ({ args }: ComponentProps) => {
     updatedImageIsOpen[index] = false;
     setIsOpen(updatedImageIsOpen);
   };
-
+  
   // Hook >>>
   // Load images
   useEffect(() => {
     const loadImages = async () => {
-      const loadedImages = await Promise.all(image_urls.map((imageUrl) => loadImage(baseUrl + imageUrl)));
+      const loadedImages = await Promise.all(image_urls.map((imageUrl) => loadImage(imageUrl)));
       setImages(loadedImages as HTMLImageElement[]);
     };
     loadImages();
-  }, [image_urls, baseUrl]);
+  }, [image_urls]);
+  
 
   // Resize canvas
   useEffect(() => {
@@ -199,6 +198,7 @@ const ImageViewer = ({ args }: ComponentProps) => {
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas()
   }, [currentSetIndex])
+  
 
   return (
     <ChakraProvider>
@@ -234,6 +234,7 @@ const ImageViewer = ({ args }: ComponentProps) => {
           </Center>
         </Box>
       </SimpleGrid>
+      
       {image_name_visible ?(
         <SimpleGrid columns={ncol} spacing={2}>
             {images.length > 0 &&  // Only render if the images array is not empty

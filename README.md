@@ -2,17 +2,18 @@
 
 Streamlit component for image viewer.
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://st-image-annotation.streamlit.app/)
-[![PyPI](https://img.shields.io/pypi/v/streamlit-image-annotation)](https://pypi.org/project/streamlit-image-annotation/)
-![](./image/demo.gif)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 
-<img src=demo/streamlit-image-viewer-demo.png></img>
+[![PyPI](https://img.shields.io/pypi/v/streamlit-image-viewer)](https://pypi.org/project/streamlit-image-viewer/)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://st-image-annotation.streamlit.app/)
+
+<img src=demo/demo.gif></img>
 # Features
 * You can easily view the images in a folder side by side
 * Support for displaying images in multiple rows and columns
 
 # Install
-
 ```sh
 pip install streamlit-image-viewer
 ```
@@ -61,6 +62,7 @@ This function allows for the effective display of specified images in a grid lay
 * Sample Images are downloaded from  [**Pixabay**](https://pixabay.com/ja/)
 
 # Release note
+* 2023/10/19 Release version 0.2.5 Now available for Multi-Page
 * 2023/9/22 Release version 0.2.2 Add Modal Image and image name visible/invisible
 * 2023/9/22 Release version 0.1.9
 * 2023/9/20 Release version 0.1.6
