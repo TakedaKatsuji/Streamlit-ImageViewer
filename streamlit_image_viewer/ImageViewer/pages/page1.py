@@ -1,13 +1,14 @@
 from glob import glob
 from streamlit_image_viewer import image_viewer
-import streamlit as st
 import streamlit_toggle as tog
+import streamlit as st
 
 st.set_page_config(layout="wide")
-st.title("ImageViewer App")
-
 
 image_path_list = glob('../../image/*.jpg') + glob('../../image/*.png') 
+
+st.title("MultiPage App")
+
 setting_col, viewer_col, _ = st.columns([2,4,2])
 with setting_col:
     st.markdown("## :gear: Setting")

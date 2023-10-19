@@ -2,8 +2,6 @@
 
 Streamlit component for image viewer.
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://st-image-annotation.streamlit.app/)
-[![PyPI](https://img.shields.io/pypi/v/streamlit-image-annotation)](https://pypi.org/project/streamlit-image-annotation/)
 ![](./image/demo.gif)
 
 <img src=demo/streamlit-image-viewer-demo.png></img>
@@ -61,6 +59,7 @@ This function allows for the effective display of specified images in a grid lay
 * Sample Images are downloaded from  [**Pixabay**](https://pixabay.com/ja/)
 
 # Release note
+* 2023/10/19 Release version 0.2.3 Now available for Multi-Page
 * 2023/9/22 Release version 0.2.2 Add Modal Image and image name visible/invisible
 * 2023/9/22 Release version 0.1.9
 * 2023/9/20 Release version 0.1.6
