@@ -5,7 +5,7 @@ Streamlit component for image viewer.
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 
-[![PyPI](https://img.shields.io/pypi/v/streamlit-image-viewer)](https://pypi.org/project/streamlit-image-viewer/0.2.3/)
+[![PyPI](https://img.shields.io/pypi/v/streamlit-image-viewer)](https://pypi.org/project/streamlit-image-viewer/0.2.4/)
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://st-image-annotation.streamlit.app/)
 
 <img src=demo/demo.gif></img>
