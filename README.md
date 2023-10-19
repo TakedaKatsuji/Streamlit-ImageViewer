@@ -62,7 +62,7 @@ This function allows for the effective display of specified images in a grid lay
 * Sample Images are downloaded from  [**Pixabay**](https://pixabay.com/ja/)
 
 # Release note
-* 2023/10/19 Release version 0.2.4 Now available for Multi-Page
+* 2023/10/19 Release version 0.2.5 Now available for Multi-Page
 * 2023/9/22 Release version 0.2.2 Add Modal Image and image name visible/invisible
 * 2023/9/22 Release version 0.1.9
 * 2023/9/20 Release version 0.1.6
