@@ -8,6 +8,8 @@ Streamlit component for image viewer.
 [![PyPI](https://img.shields.io/pypi/v/streamlit-image-viewer)](https://pypi.org/project/streamlit-image-viewer/)
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://st-image-annotation.streamlit.app/)
 
+<p style="font-size: 24px;"><a href="https://imageviewer.streamlit.app/">🔥Demo APP🔥</a></p>
+
 <img src=demo/demo.gif></img>
 # Features
 * You can easily view the images in a folder side by side
